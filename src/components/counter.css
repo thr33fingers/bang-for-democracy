@@ -1,0 +1,41 @@
+.counter-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-family: fat-frank;
+  font-size: 2.15rem;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@media screen and (max-width: 767px){
+  .counter-container .counter-numbers, .counter-container .counter-text{
+    font-size: 1.333333rem;
+  }
+}
+
+.counter-container .counter-numbers {
+  color: #fff;
+  line-height: 1;
+}
+
+
+.counter-container .counter-text, .counter-container .counter-ref{
+  color: #494855;
+}
+
+.counter-container .counter-ref{
+  font-family: 'Open Sans';
+  font-size: 9px;
+}
+
+.counter-container .counter-ref .ref-link{
+  color: #696875;
+  pointer-events: auto;
+  margin-left: 4px;
+}
+
+.counter-container .counter-ref .ref-link:hover{
+  color: #fff;
+}

@@ -1,0 +1,45 @@
+.App {
+  width: 100%;
+  height: 100%;
+}
+
+.app-background {
+  background-color: #140F2D;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.min-aung-hlaing{
+  width: 1009.8px;
+  height: 75%;
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+}
+
+@media screen and (max-width: 768px){
+  .min-aung-hlaing{
+    width: 100%;
+    height: 63.356481%;
+  }
+}
+
+
+.min-aung-hlaing .min-aung-hlaing-inner {
+  position: relative;
+  width:100%;
+  height: 100%;
+  margin-left: -50%;
+}
+
+.eyes {
+  position: absolute;
+  width: 16%;
+  height: 6%;
+  bottom: 51%;
+  left: 41%;
+}
