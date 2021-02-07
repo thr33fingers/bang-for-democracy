@@ -1,47 +1,35 @@
-import React, {useState} from 'react';
-import {useSpring} from 'react-spring';
+import React, {useRef, useState} from 'react';
 import Eye, {EyeLateralities} from './components/eye';
 import Body from './components/body';
 import Counter from './components/counter';
 import Banger from './components/banger';
 import './App.css';
 
-const BangSoundEffect = new Audio('/pot-and-pan.ogg');
-
 const App = () => {
-  // TODO: we don't have backend now and probably never will :)
   const [counter, setCounter] = useState(Math.floor(new Date().getTime() / 10000000));
-
-  const [eyeSpring, setEyeSpring] = useSpring(() => ({
-    xy: [0, 0]  // [x, y]
-  }));
-
-  // @ts-ignore: typescript does not work well here with useSpring's
-  // to and from so // ignore type checking here
-  const ladleSpring = useSpring({
-    from: {transform: 'rotate(140deg) translate3d(0, -60px, 0)'},
-    to: [
-      {transform: 'rotate(172deg) translate3d(0, -60px, 0)'},
-      {transform: 'rotate(140deg) translate3d(0, -60px, 0)'}
-    ],
-    config: {duration: 250}
-  });
+  const [irisStyle, setIrisStyle] = useState<React.CSSProperties | undefined>();
+  const [bangerStyle, setBangerStyle] = useState<React.CSSProperties | undefined>();
+  const bangerRef = useRef<Element>();
 
   const onMouseMove = (e: React.MouseEvent) => {
     // animate eye movements
     const irisWidth = 20;
     const irisHeight = 16;
-    const offsetX = irisWidth * ((e.clientX / window.innerWidth) - 0.5);
-    const offsetY = irisHeight * ((e.clientY / window.innerHeight) - 0.5);
-    setEyeSpring({xy: [offsetX, offsetY]});
+    const irisOffsetX = irisWidth * ((e.clientX / window.innerWidth) - 0.5);
+    const irisOffsetY = irisHeight * ((e.clientY / window.innerHeight) - 0.5);
+    setIrisStyle({transform: `translate(${irisOffsetX}px, ${irisOffsetY}px)`});
+
+    if (bangerRef.current) {
+      setBangerStyle({
+        left: e.pageX - (bangerRef.current?.clientWidth as number) / 2,
+        top: e.pageY - (bangerRef.current?.clientHeight as number) / 2
+      });
+    }
   };
 
   const onClick = () => {
     // update counter and start bang animation
     setCounter(counter + 1);
-    BangSoundEffect.pause();
-    BangSoundEffect.currentTime = 0;
-    BangSoundEffect.play();
   };
 
   return (
@@ -52,15 +40,15 @@ const App = () => {
           <div className='eyes'>
             <Eye
               laterality={EyeLateralities.LEFT}
-              xy={eyeSpring.xy}/>
+              irisStyle={irisStyle}/>
             <Eye
               laterality={EyeLateralities.RIGHT}
-              xy={eyeSpring.xy}/>
+              irisStyle={irisStyle}/>
           </div>
           <Body/>
         </div>
       </div>
-      <Banger rxy={ladleSpring}/>
+      <Banger bangerStyle={bangerStyle} counter={counter} ref={bangerRef}/>
       <Counter value={counter}/>
     </div>
   );

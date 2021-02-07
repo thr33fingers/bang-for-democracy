@@ -1,4 +1,4 @@
 export type EyeProps = {
   laterality: string;
-  xy: any;
+  irisStyle?: React.CSSProperties
 };

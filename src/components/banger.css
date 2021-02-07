@@ -5,9 +5,9 @@
   top: 32%;
   left: 75%;
   transform-origin: 0 0;
-  transition: top 0.5s, left 0.5s;
-  /* transform: rotate(-45deg) translate(0%, 0%); */
+  backface-visibility: hidden;
   z-index: 3000;
+  pointer-events: none;
 }
 
 .banger .banger-inner-wrapper {
