@@ -31,8 +31,16 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+## Deployment
+
+The app is deployed to Github pages via action workflow. It is live at [bangfordemocracy.org](https://bangfordemocracy.org)
+
 ## Credit
 
 Thanks [Phi Theim Kyaw](https://www.facebook.com/groups/647238722805742/user/100001154413402/) and [Burmese LinkedIn community](https://www.facebook.com/groups/burmeselinkedin/permalink/810830026446610) for coming up with this brilliant idea.
 
 Thanks [TrumpDonald.org](https://trumpdonald.org) for inspiration!
+
+## Contribution
+
+Contributions welcome! Please fork this repo and make a merge request.
