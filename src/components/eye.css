@@ -37,7 +37,15 @@
   left: 50%;
   background-image: url(../assets/reflection.png);
   background-repeat: no-repeat;
-  -webkit-background-size: contain;
   background-size: contain;
   background-position: center;
+}
+
+@media screen and (max-width: 768px) {
+  .iris {
+    width: 32px;
+    height: 32px;
+    top: 114%;
+    left: 140%;
+  }
 }

@@ -10,7 +10,7 @@ const Counter: React.FC<CounterProps> = props => {
       </div>
       <div className='counter-text'>Bang for <br/>democracy</div>
       <div className='counter-ref'>
-        Brought to you by
+        by
         <a
           href='https://www.facebook.com/groups/burmeselinkedin'
           target='_blank'

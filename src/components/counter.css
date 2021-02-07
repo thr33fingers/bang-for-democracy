@@ -10,8 +10,24 @@
 }
 
 @media screen and (max-width: 767px){
-  .counter-container .counter-numbers, .counter-container .counter-text{
-    font-size: 1.333333rem;
+  .counter-container {
+    left: 10px;
+    bottom: 80px;
+  }
+
+  .counter-container .counter-numbers, .counter-container .counter-text {
+    font-size: 1rem;
+  }
+}
+
+/* iPhone X */
+@media only screen
+  and (device-width : 375px)
+  and (device-height : 812px)
+  and (-webkit-device-pixel-ratio : 3) {
+  .counter-container {
+    left: 10px;
+    bottom: 110px;
   }
 }
 
@@ -21,7 +37,7 @@
 }
 
 
-.counter-container .counter-text, .counter-container .counter-ref{
+.counter-container .counter-text, .counter-container .counter-ref {
   color: #494855;
 }
 
