@@ -6,7 +6,7 @@ import Counter from './components/counter';
 import Banger from './components/banger';
 import './App.css';
 
-const BangSoundEffect = new Audio('%PUBLIC_URL%/pot-and-pan.ogg');
+const BangSoundEffect = new Audio('/pot-and-pan.ogg');
 
 const App = () => {
   // TODO: we don't have backend now and probably never will :)
