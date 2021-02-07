@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/bang-for-democrazy/static/css/main.b5adff0e.chunk.css",
+    "main.js": "/bang-for-democrazy/static/js/main.4ffb828b.chunk.js",
+    "main.js.map": "/bang-for-democrazy/static/js/main.4ffb828b.chunk.js.map",
+    "runtime-main.js": "/bang-for-democrazy/static/js/runtime-main.cf4cad91.js",
+    "runtime-main.js.map": "/bang-for-democrazy/static/js/runtime-main.cf4cad91.js.map",
+    "static/js/2.0eccf56f.chunk.js": "/bang-for-democrazy/static/js/2.0eccf56f.chunk.js",
+    "static/js/2.0eccf56f.chunk.js.map": "/bang-for-democrazy/static/js/2.0eccf56f.chunk.js.map",
+    "index.html": "/bang-for-democrazy/index.html",
+    "static/css/main.b5adff0e.chunk.css.map": "/bang-for-democrazy/static/css/main.b5adff0e.chunk.css.map",
+    "static/js/2.0eccf56f.chunk.js.LICENSE.txt": "/bang-for-democrazy/static/js/2.0eccf56f.chunk.js.LICENSE.txt",
+    "static/media/eye.css": "/bang-for-democrazy/static/media/eye.d446e24e.png",
+    "static/media/ladle-wooden.8661c88a.svg": "/bang-for-democrazy/static/media/ladle-wooden.8661c88a.svg",
+    "static/media/body.css": "/bang-for-democrazy/static/media/minaunghlaing.3b0a9225.webp",
+    "static/media/pan.81053975.svg": "/bang-for-democrazy/static/media/pan.81053975.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cf4cad91.js",
+    "static/js/2.0eccf56f.chunk.js",
+    "static/css/main.b5adff0e.chunk.css",
+    "static/js/main.4ffb828b.chunk.js"
+  ]
+}
