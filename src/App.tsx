@@ -4,6 +4,7 @@ import Body from './components/body';
 import Counter from './components/counter';
 import Banger from './components/banger';
 import './App.css';
+import './console_art';
 
 const getRandomMessage = () => {
   const messages = [
