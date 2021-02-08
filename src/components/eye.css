@@ -43,9 +43,9 @@
 
 @media screen and (max-width: 768px) {
   .iris {
-    width: 32px;
-    height: 32px;
-    top: 114%;
-    left: 140%;
+    width: 40px;
+    height: 40px;
+    top: 107%;
+    left: 100%;
   }
 }

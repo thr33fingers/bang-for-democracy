@@ -31,7 +31,7 @@ const App = () => {
   const onMouseMove = (e: React.MouseEvent) => {
     // animate eye movements
     const irisWidth = 20;
-    const irisHeight = 16;
+    const irisHeight = 12;
     const irisOffsetX = irisWidth * ((e.clientX / window.innerWidth) - 0.5);
     const irisOffsetY = irisHeight * ((e.clientY / window.innerHeight) - 0.5);
     setIrisStyle({transform: `translate(${irisOffsetX}px, ${irisOffsetY}px)`});
