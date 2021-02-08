@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {useSpring} from 'react-spring';
 
-const BangSoundEffect = new Audio('/pot-and-pan.ogg');
+const BangSoundEffect = new Audio('/pot-and-pan.mp3');
 
 export function useLadleBang(counter: number): React.CSSProperties {
   const initialMount = useRef(true);
