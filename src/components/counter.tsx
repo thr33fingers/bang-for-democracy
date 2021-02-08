@@ -9,15 +9,6 @@ const Counter: React.FC<CounterProps> = props => {
         {props.value?.toLocaleString()}
       </div>
       <div className='counter-text'>Bang for <br/>democracy</div>
-      <div className='counter-ref'>
-        by
-        <a
-          href='https://www.facebook.com/groups/burmeselinkedin'
-          target='_blank'
-          className='ref-link'>
-          Burmese Linkedin
-        </a>
-      </div>
     </div>
   );
 };
