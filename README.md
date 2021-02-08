@@ -37,8 +37,6 @@ The app is deployed to Github pages via action workflow. It is live at [bangford
 
 ## Credit
 
-Thanks [Phi Theim Kyaw](https://www.facebook.com/groups/647238722805742/user/100001154413402/) and [Burmese LinkedIn community](https://www.facebook.com/groups/burmeselinkedin/permalink/810830026446610) for coming up with this brilliant idea.
-
 Thanks [TrumpDonald.org](https://trumpdonald.org) for inspiration!
 
 ## Contribution
