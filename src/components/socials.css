@@ -1,0 +1,44 @@
+.socials-container{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 0;
+  z-index: 9999;
+}
+
+.socials-container .social-item{
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: 40px;
+  background-position: 100% 0;
+}
+
+.socials-container .social-item:hover{
+  background-position: 33.33333% 0;
+}
+
+.socials-container .social-item:not(:first-child){
+  margin-left: -2px;
+}
+
+@media screen and (max-width: 1024px){
+  .touch .socials-container .social-item:hover{
+    background-position: 0% 0;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .socials-container {
+    bottom: 60px;
+  }
+
+  .socials-container .social-item:not(:first-child){
+    margin-left: -2px;
+  }
+}
+
+.github {
+  background-image: url(../assets/github.png);
+}

@@ -3,6 +3,7 @@ import Eye, {EyeLateralities} from './components/eye';
 import Body from './components/body';
 import Counter from './components/counter';
 import Banger from './components/banger';
+import Socials from './components/socials';
 import './App.css';
 import './console_art';
 
@@ -69,6 +70,7 @@ const App = () => {
       </div>
       <Banger bangerStyle={bangerStyle} counter={counter} ref={bangerRef}/>
       <Counter value={counter}/>
+      <Socials/>
     </div>
   );
 }
