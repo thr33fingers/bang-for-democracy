@@ -6,24 +6,31 @@ import Banger from './components/banger';
 import './App.css';
 import './console_art';
 
-const getRandomMessage = () => {
+const getRotatingMessage = (counter: number = 0) => {
+  // prefer call to actions
   const messages = [
     'Civil disobedience movement',
+    'စစ်အာဏာရှင်စနစ် အလိုမရှိ',
     'Hear the voice of Myanmar',
+    'အရေးတော်ပုံ အောင်ရမည်',
     'Reject military coup',
+    'ကမ္ဘာမကြေဘူး',
     'Respect our votes',
+    'မတရားမှုမှန်သမျှ ဆန့်ကျင်ကြ',
     'Save Myanmar',
+    'ပြည်သူအားလုံး ပူးပေါင်းပါဝင်ကြ',
     'We want democracy',
-    'Release Aung San Su Kyi'
+    'ညီညီညွတ်ညွတ် တီးကြစို့',
+    'Release Aung San Su Kyi',
   ];
 
-  return messages[Math.floor(Math.random() * messages.length)];
+  return messages[counter % messages.length];
 };
 
 
 const App = () => {
   const [counter, setCounter] = useState(Math.floor(new Date().getTime() / 10000000));
-  const [message, setMessage] = useState(getRandomMessage());
+  const [message, setMessage] = useState(getRotatingMessage(counter));
   const [irisStyle, setIrisStyle] = useState<React.CSSProperties | undefined>();
   const [bangerStyle, setBangerStyle] = useState<React.CSSProperties | undefined>();
   const bangerRef = useRef<Element>();
@@ -47,7 +54,7 @@ const App = () => {
   const onClick = () => {
     // update counter and start bang animation
     setCounter(counter + 1);
-    setMessage(getRandomMessage());
+    setMessage(getRotatingMessage(counter + 1));
   };
 
   return (
