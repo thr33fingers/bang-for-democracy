@@ -11,8 +11,8 @@ export function useLadleBang(counter: number): React.CSSProperties {
   const ladleStyle = useSpring(
     {
       transform: isBanged
-        ? 'rotate(172deg) translate3d(0, -60px, 0)'
-        : 'rotate(160deg) translate3d(24px, -60px, 0)',
+        ? 'rotate(172deg) translate(-55%, -30%)'
+        : 'rotate(160deg) translate(0%, -30%)',
       config: {duration}
     }
   );

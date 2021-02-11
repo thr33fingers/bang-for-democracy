@@ -12,14 +12,12 @@ const Banger = React.forwardRef((props: BangerProps, ref) => {
   return (
     // @ts-ignore
     <div className='banger' style={props.bangerStyle} ref={ref}>
-      <div className='banger-inner-wrapper'>
-        <div className='banger-inner'>
-          <img className='pan' src={Pan}/>
-          <animated.img
-            className='ladle'
-            src={Ladle}
-            style={ladleStyle}/>
-        </div>
+      <div className='banger-inner'>
+        <img className='pan' src={Pan}/>
+        <animated.img
+          className='ladle'
+          src={Ladle}
+          style={ladleStyle}/>
       </div>
     </div>
   );

@@ -27,6 +27,14 @@
   margin: 0;
 }
 
+@media screen and (max-width: 768px){
+  .message{
+    top: 50px;
+    font-size: 52px;
+    line-height: 1.5;
+  }
+}
+
 .min-aung-hlaing{
   width: 60%;
   height: 75%;
