@@ -6,6 +6,8 @@ import Banger from './components/banger';
 import './App.css';
 import './console_art';
 
+const BangSoundEffect = new Audio('/pot-and-pan.mp3');
+
 const getRotatingMessage = (counter: number = 0) => {
   // prefer call to actions
   const messages = [
@@ -52,9 +54,16 @@ const App = () => {
   };
 
   const onClick = () => {
-    // update counter and start bang animation
+    // update counter. this should trigger animation in the banger component
     setCounter(counter + 1);
     setMessage(getRotatingMessage(counter + 1));
+
+    // play bang sound
+    // ideally this should be in banger component but safari on ios does not allow
+    // autoplaying sound so this needs to be inside user action event
+    BangSoundEffect.pause();
+    BangSoundEffect.currentTime = 0;
+    BangSoundEffect.play();
   };
 
   return (

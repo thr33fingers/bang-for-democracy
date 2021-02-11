@@ -1,8 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {useSpring} from 'react-spring';
 
-const BangSoundEffect = new Audio('/pot-and-pan.mp3');
-
 export function useLadleBang(counter: number): React.CSSProperties {
   const initialMount = useRef(true);
   const [isBanged, setIsBanged] = useState(false);
@@ -38,9 +36,6 @@ export function useLadleBang(counter: number): React.CSSProperties {
         initialMount.current = false;
       } else {
         setIsBanged(true);
-        BangSoundEffect.pause();
-        BangSoundEffect.currentTime = 0;
-        BangSoundEffect.play();
       }
     },
     [counter]
