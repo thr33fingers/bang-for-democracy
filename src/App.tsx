@@ -1,70 +1,114 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useCallback} from 'react';
 import Eye, {EyeLateralities} from './components/eye';
 import Body from './components/body';
 import Counter from './components/counter';
 import Banger from './components/banger';
+import Cat from './components/cat';
+import {
+  getRotatingMessage,
+  getInitialCounter,
+  playBangSound,
+  playMeowSound,
+  radianBetween
+} from './App.utils';
 import './App.css';
 import './console_art';
 
-const BangSoundEffect = new Audio('/pot-and-pan.mp3');
-
-const getRotatingMessage = (counter: number = 0) => {
-  // prefer call to actions
-  const messages = [
-    'Civil disobedience movement',
-    'စစ်အာဏာရှင်စနစ် အလိုမရှိ',
-    'Hear the voice of Myanmar',
-    'အရေးတော်ပုံ အောင်ရမည်',
-    'Reject military coup',
-    'ကမ္ဘာမကြေဘူး',
-    'Respect our votes',
-    'မတရားမှုမှန်သမျှ ဆန့်ကျင်ကြ',
-    'Save Myanmar',
-    'ပြည်သူအားလုံး ပူးပေါင်းပါဝင်ကြ',
-    'We want democracy',
-    'ညီညီညွတ်ညွတ် တီးကြစို့',
-    'Release Aung San Su Kyi',
-  ];
-
-  return messages[counter % messages.length];
-};
-
+// empirical iris dimension
+const IRIS_WIDTH = 20; // px
+const IRIS_HEIGHT = 12;
 
 const App = () => {
-  const [counter, setCounter] = useState(Math.floor(new Date().getTime() / 10000000));
+  const [counter, setCounter] = useState(getInitialCounter());
   const [message, setMessage] = useState(getRotatingMessage(counter));
   const [irisStyle, setIrisStyle] = useState<React.CSSProperties | undefined>();
   const [bangerStyle, setBangerStyle] = useState<React.CSSProperties | undefined>();
-  const bangerRef = useRef<Element>();
+  const [catStyle, setCatStyle] = useState<React.CSSProperties | undefined>();
+  const [catTargetPosition, setCatTargetPosition] = useState<[number, number]>();
+  const [showCat, setShowCat] = useState(false);
+
+  const eyesRef = useRef<HTMLDivElement | null>(null);
+  const bangerRef = useRef<HTMLDivElement | null>(null);
+  const catRef = useRef<HTMLDivElement | null>(null);
 
   const onMouseMove = (e: React.MouseEvent) => {
+    setBangerStyle({
+      left: e.pageX - (bangerRef.current?.clientWidth || 0 as number) / 2,
+      top: e.pageY - (bangerRef.current?.clientHeight || 0 as number) / 2
+    });
+
     // animate eye movements
-    const irisWidth = 20;
-    const irisHeight = 12;
-    const irisOffsetX = irisWidth * ((e.clientX / window.innerWidth) - 0.5);
-    const irisOffsetY = irisHeight * ((e.clientY / window.innerHeight) - 0.5);
+    const irisOffsetX = IRIS_WIDTH * ((e.clientX / window.innerWidth) - 0.5);
+    const irisOffsetY = IRIS_HEIGHT * ((e.clientY / window.innerHeight) - 0.5);
     setIrisStyle({transform: `translate(${irisOffsetX}px, ${irisOffsetY}px)`});
 
-    if (bangerRef.current) {
-      setBangerStyle({
-        left: e.pageX - (bangerRef.current?.clientWidth as number) / 2,
-        top: e.pageY - (bangerRef.current?.clientHeight as number) / 2
+    if (!catTargetPosition) {
+      // note: stop changing position after pooping
+      const cursorX = e.pageX - (catRef.current?.clientWidth || 0 as number) / 2;
+      const cursorY = e.pageY - (catRef.current?.clientHeight || 0 as number) / 2;
+      const cartesianX = cursorX - window.innerWidth / 2;
+      const cartesianY = (cursorY - window.innerHeight / 2) * -1;
+      const rotation = radianBetween([0, 1], [cartesianX, cartesianY]) * (cartesianX < 0 ? -1 : 1);
+      setCatStyle({
+        left: cursorX,
+        top: cursorY,
+        transform: `rotate(${rotation}rad)`
       });
     }
   };
 
   const onClick = () => {
-    // update counter. this should trigger animation in the banger component
-    setCounter(counter + 1);
-    setMessage(getRotatingMessage(counter + 1));
+    if (showCat) {
+      if (catTargetPosition) return;
 
-    // play bang sound
-    // ideally this should be in banger component but safari on ios does not allow
-    // autoplaying sound so this needs to be inside user action event
-    BangSoundEffect.pause();
-    BangSoundEffect.currentTime = 0;
-    BangSoundEffect.play();
+      // shoot poop to the devil
+      const eyesRect = eyesRef.current?.getBoundingClientRect();
+      const targetLeft = eyesRect?.left || window.innerWidth / 2; // fallback to center
+      const targetTop = eyesRect?.top || window.innerHeight / 2;
+      setCatTargetPosition([targetLeft, targetTop]);
+      playMeowSound();
+    } else {
+      // update counter. this should trigger animation in the banger component
+      const nextCounter = counter + 1;
+      setCounter(nextCounter);
+      setMessage(getRotatingMessage(nextCounter));
+      playBangSound();
+
+      // let the cat poops every third clicks
+      setShowCat(nextCounter % 3 === 0);
+    }
   };
+
+  const onCatAnimationComplete = () => {
+    setShowCat(false);
+    setCatTargetPosition(undefined);
+  };
+
+  const onCatAnimationFrame = (poopLeft: number, poopTop: number) => {
+    // animate eye movements
+    const irisOffsetX = IRIS_WIDTH * ((poopLeft / window.innerWidth) - 0.5);
+    const irisOffsetY = IRIS_HEIGHT * ((poopTop / window.innerHeight) - 0.5);
+    setIrisStyle({transform: `translate(${irisOffsetX}px, ${irisOffsetY}px)`});
+  };
+
+  let cursor;
+  if (showCat) {
+    cursor = (
+      <Cat
+        onAnimationComplete={onCatAnimationComplete}
+        onAnimationFrame={onCatAnimationFrame}
+        ref={catRef}
+        style={catStyle}
+        targetPosition={catTargetPosition}/>
+    );
+  } else {
+    cursor = (
+      <Banger
+        counter={counter}
+        ref={bangerRef}
+        style={bangerStyle}/>
+    );
+  }
 
   return (
     <div className='App' onMouseMove={onMouseMove} onClick={onClick}>
@@ -72,7 +116,7 @@ const App = () => {
       <h1 className='message'>{message}</h1>
       <div className='min-aung-hlaing'>
         <div className='min-aung-hlaing-inner'>
-          <div className='eyes'>
+          <div className='eyes' ref={eyesRef}>
             <Eye
               laterality={EyeLateralities.LEFT}
               irisStyle={irisStyle}/>
@@ -83,7 +127,7 @@ const App = () => {
           <Body/>
         </div>
       </div>
-      <Banger bangerStyle={bangerStyle} counter={counter} ref={bangerRef}/>
+      {cursor}
       <Counter value={counter}/>
     </div>
   );

@@ -1,5 +1,5 @@
 export type BangerProps = {
-  bangerStyle?: React.CSSProperties,
+  style?: React.CSSProperties,
   counter: number;
   ref: any;
 };
