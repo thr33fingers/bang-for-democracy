@@ -6,12 +6,11 @@ import {BangerProps} from './banger.types';
 import {useLadleBang} from './banger.hooks';
 import './banger.css';
 
-const Banger = React.forwardRef((props: BangerProps, ref) => {
+const Banger = React.forwardRef<HTMLDivElement, BangerProps>((props, ref) => {
   const ladleStyle = useLadleBang(props.counter);
 
   return (
-    // @ts-ignore
-    <div className='banger' style={props.bangerStyle} ref={ref}>
+    <div className='banger' style={props.style} ref={ref}>
       <div className='banger-inner'>
         <img className='pan' src={Pan}/>
         <animated.img
