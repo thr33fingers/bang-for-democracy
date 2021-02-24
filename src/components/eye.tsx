@@ -10,8 +10,12 @@ export const EyeLateralities = Object.freeze({
 const Eye: React.FC<EyeProps> = props => {
   return (
     <div className={`eye ${props.laterality}`}>
-      <div className='iris' style={props.irisStyle}/>
-      <div className='reflection'></div>
+      <div
+        className='iris'
+        style={{...props.irisStyle, backgroundImage: `url(${props.irisImageSrc})`}}/>
+      <div
+        className='reflection'
+        style={{backgroundImage: `url(${props.reflectionImageSrc})`}}/>
     </div>
   );
 };

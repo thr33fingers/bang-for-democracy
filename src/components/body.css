@@ -6,11 +6,10 @@
   overflow: hidden;
 }
 
-.body{
+.body {
   width: 80%;
   height: 100%;
   transform: translateX(10%);
-  background-image: url(../assets/minaunghlaing.webp);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: 100% 0;

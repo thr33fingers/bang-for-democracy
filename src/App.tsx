@@ -7,12 +7,13 @@ import Cat from './components/cat';
 import {
   getRotatingMessage,
   getInitialCounter,
-  playBangSound,
-  playMeowSound,
+  playSound,
   radianBetween
 } from './App.utils';
+import {usePreloadedAssets} from './App.hooks';
 import './App.css';
 import './console_art';
+import LoadingImage from './assets/loading.svg';
 
 // empirical iris dimension
 const IRIS_WIDTH = 20; // px
@@ -26,10 +27,14 @@ const App = () => {
   const [catStyle, setCatStyle] = useState<React.CSSProperties | undefined>();
   const [catTargetPosition, setCatTargetPosition] = useState<[number, number]>();
   const [showCat, setShowCat] = useState(false);
+  const preloadedAssetsResult = usePreloadedAssets();
 
   const eyesRef = useRef<HTMLDivElement | null>(null);
   const bangerRef = useRef<HTMLDivElement | null>(null);
   const catRef = useRef<HTMLDivElement | null>(null);
+  if (!preloadedAssetsResult.data) {
+    return <div className='loading-screen'><img src={LoadingImage}/></div>;
+  }
 
   const onMouseMove = (e: React.MouseEvent) => {
     setBangerStyle({
@@ -58,6 +63,8 @@ const App = () => {
   };
 
   const onClick = () => {
+    if (!preloadedAssetsResult.data) return;
+
     if (showCat) {
       if (catTargetPosition) return;
 
@@ -66,13 +73,13 @@ const App = () => {
       const targetLeft = eyesRect?.left || window.innerWidth / 2; // fallback to center
       const targetTop = eyesRect?.top || window.innerHeight / 2;
       setCatTargetPosition([targetLeft, targetTop]);
-      playMeowSound();
+      playSound(preloadedAssetsResult.data.meowSound);
     } else {
       // update counter. this should trigger animation in the banger component
       const nextCounter = counter + 1;
       setCounter(nextCounter);
       setMessage(getRotatingMessage(nextCounter));
-      playBangSound();
+      playSound(preloadedAssetsResult.data.bangSound);
 
       // let the cat poops every third clicks
       setShowCat(nextCounter % 3 === 0);
@@ -95,6 +102,8 @@ const App = () => {
   if (showCat) {
     cursor = (
       <Cat
+        catImage={preloadedAssetsResult.data.catImage}
+        catPoopImage={preloadedAssetsResult.data.catPoopImage}
         onAnimationComplete={onCatAnimationComplete}
         onAnimationFrame={onCatAnimationFrame}
         ref={catRef}
@@ -106,7 +115,9 @@ const App = () => {
       <Banger
         counter={counter}
         ref={bangerRef}
-        style={bangerStyle}/>
+        style={bangerStyle}
+        panImageSrc={preloadedAssetsResult.data?.panImage}
+        ladleImageSrc={preloadedAssetsResult.data?.ladleImage} />
     );
   }
 
@@ -119,12 +130,16 @@ const App = () => {
           <div className='eyes' ref={eyesRef}>
             <Eye
               laterality={EyeLateralities.LEFT}
-              irisStyle={irisStyle}/>
+              irisImageSrc={preloadedAssetsResult.data.irisImage}
+              irisStyle={irisStyle}
+              reflectionImageSrc={preloadedAssetsResult.data.reflectionImage}/>
             <Eye
               laterality={EyeLateralities.RIGHT}
-              irisStyle={irisStyle}/>
+              irisImageSrc={preloadedAssetsResult.data.irisImage}
+              irisStyle={irisStyle}
+              reflectionImageSrc={preloadedAssetsResult.data.reflectionImage}/>
           </div>
-          <Body/>
+          <Body imageSrc={preloadedAssetsResult.data?.bodyImage}/>
         </div>
       </div>
       {cursor}

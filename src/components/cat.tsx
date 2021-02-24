@@ -1,7 +1,5 @@
 import React, {useEffect, useRef} from 'react';
 import {useSpring, animated} from 'react-spring';
-import CatPoopImage from '../assets/cat_poop.webp';
-import CatSoldierImage from '../assets/cat.webp';
 import {CatProps} from './cat.types';
 import './cat.css';
 
@@ -46,10 +44,10 @@ const Cat = React.forwardRef<HTMLDivElement, CatProps>((props, ref) => {
       <div className='cat-inner'>
         <animated.img
           className='cat-poop'
-          src={CatPoopImage}
+          src={props.catPoopImage}
           style={{transform: poopSpring.xy.interpolate(trans)}}
           ref={poopRef}/>
-        <img className='cat-body' src={CatSoldierImage}/>
+        <img className='cat-body' src={props.catImage}/>
       </div>
     </div>
   );

@@ -76,3 +76,16 @@
   bottom: 51%;
   left: 41%;
 }
+
+.loading-screen {
+  background-color: #1e1f26;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    margin: auto;
+  }
+}

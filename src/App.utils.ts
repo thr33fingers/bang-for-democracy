@@ -1,6 +1,3 @@
-const BangSoundEffect = new Audio('/pot-and-pan.mp3');
-const MeowSoundEffect = new Audio('/meow.mp3');
-
 export const getRotatingMessage = (counter: number = 0): string => {
   // prefer call to actions
   const messages = [
@@ -24,22 +21,13 @@ export const getRotatingMessage = (counter: number = 0): string => {
 };
 
 export const getInitialCounter = (): number => {
-  return parseInt(new Date().getTime().toString().slice(6, 12));
+  return parseInt('1' + new Date().getTime().toString().slice(6, 12));
 };
 
-export const playBangSound = () => {
-  // play bang sound for pdt and ladle
-  // ideally this should be in banger component but safari on ios does not allow
-  // autoplaying sound so this needs to be inside user action event
-  BangSoundEffect.pause();
-  BangSoundEffect.currentTime = 0;
-  BangSoundEffect.play();
-};
-
-export const playMeowSound = () => {
-  MeowSoundEffect.pause();
-  MeowSoundEffect.currentTime = 0;
-  MeowSoundEffect.play();
+export const playSound = (audio: HTMLAudioElement) => {
+  audio.pause();
+  audio.currentTime = 0;
+  audio.play();
 };
 
 type Vector = [number, number]; // [x, y]
@@ -49,3 +37,17 @@ export const radianBetween = (a: Vector, b: Vector): number => {
   const dot = a[0] * b[0] + a[1] * b[1];
   return Math.acos(dot / (aLength * bLength));
 }
+
+export const loadImage = (path: string) => new Promise((resolve, reject) => {
+  const img = new Image();
+  img.onload = () => resolve(path);
+  img.onerror = () => reject();
+  img.src = path;
+});
+
+export const loadAudio = (path: string) => new Promise((resolve, reject) => {
+  const audio = new Audio(path);
+  audio.oncanplaythrough = () => resolve(audio);
+  audio.onerror = () => reject();
+  return audio;
+});

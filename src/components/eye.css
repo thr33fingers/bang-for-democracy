@@ -21,7 +21,6 @@
   left: 50%;
   margin-top: -30px;
   margin-left: -38px;
-  background-image: url(../assets/eye.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -35,7 +34,6 @@
   position: absolute;
   top: 65%;
   left: 50%;
-  background-image: url(../assets/reflection.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
